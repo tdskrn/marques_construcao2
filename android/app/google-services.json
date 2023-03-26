@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "349800794751",
+    "project_id": "marques-construcao-bd0c6",
+    "storage_bucket": "marques-construcao-bd0c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349800794751:android:8e22b8c7851f9cf36ecd4a",
+        "android_client_info": {
+          "package_name": "com.example.marques_construcao"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349800794751-kk47cooe6lp4f7pduofu5nv1ii307q8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCubRSDb3fC05ftsO6582-5hAvk4P4yQnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349800794751-kk47cooe6lp4f7pduofu5nv1ii307q8a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
