@@ -1,11 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthController {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   // Sign up users
   final FirebaseAuth _auth = FirebaseAuth.instance;
   Future<String> signUpUsers(
     String email,
-    String fullname,
+    String fullName,
     String phoneNumber,
     String password,
   ) async {
@@ -13,13 +15,22 @@ class AuthController {
 
     try {
       if (email.isNotEmpty &&
-          fullname.isNotEmpty &&
+          fullName.isNotEmpty &&
           phoneNumber.isNotEmpty &&
           password.isNotEmpty) {
         // Create User
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
-        res = 'Success';
+        await _firestore.collection('buyers').doc(cred.user!.uid).set({
+          'email': email,
+          'fullName': fullName,
+          'phoneNumber': phoneNumber,
+          'buyerId': cred.user!.uid,
+          'address': '',
+        }).whenComplete(() {
+          res = 'success';
+          return res;
+        });
       } else {
         res = 'Please Fields must not be empty';
       }
