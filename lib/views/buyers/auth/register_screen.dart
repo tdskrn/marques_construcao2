@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:marques_construcao/controllers/auth_controller.dart';
 import 'package:marques_construcao/utils/show_snackBar.dart';
 import 'package:marques_construcao/views/buyers/auth/login_screen.dart';
@@ -24,13 +26,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   bool _isLoading = false;
 
+  Uint8List? _image;
+
   _signUpUser() async {
     setState(() {
       _isLoading = true;
     });
     if (_formKey.currentState!.validate()) {
       await _authController
-          .signUpUsers(email, fullName, phoneNumber, password)
+          .signUpUsers(email, fullName, phoneNumber, password, _image)
           .whenComplete(() {
         setState(() {
           _formKey.currentState!.reset();
@@ -45,6 +49,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
       });
       return showSnackB(context, "Todos campos devem ser preenchidos");
     }
+  }
+
+  selectGalleryImage() async {
+    Uint8List im = await _authController.pickProfileImage(ImageSource.gallery);
+    setState(() {
+      _image = im;
+    });
+  }
+
+  selectCameraImage() async {
+    Uint8List im = await _authController.pickProfileImage(ImageSource.camera);
+    setState(() {
+      _image = im;
+    });
   }
 
   @override
@@ -65,15 +83,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 Stack(
                   children: <Widget>[
-                    CircleAvatar(
-                      radius: 64,
-                      backgroundColor: Colors.yellow.shade900,
-                    ),
+                    _image != null
+                        ? CircleAvatar(
+                            radius: 64,
+                            backgroundColor: Colors.yellow.shade900,
+                            backgroundImage: MemoryImage(_image!),
+                          )
+                        : CircleAvatar(
+                            radius: 64,
+                            backgroundColor: Colors.yellow.shade900,
+                            backgroundImage: NetworkImage(
+                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE95qPiotkOo4A7GdJm_bDsIZtT0BQxqmwTg&usqp=CAU'),
+                          ),
                     Positioned(
                       right: 5,
                       top: 5,
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          selectGalleryImage();
+                        },
                         icon: Icon(
                           CupertinoIcons.photo,
                         ),
