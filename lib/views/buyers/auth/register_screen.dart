@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:marques_construcao/controllers/auth_controller.dart';
 import 'package:marques_construcao/utils/show_snackBar.dart';
@@ -62,9 +63,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fontSize: 20,
                   ),
                 ),
-                CircleAvatar(
-                  radius: 64,
-                  backgroundColor: Colors.yellow.shade900,
+                Stack(
+                  children: <Widget>[
+                    CircleAvatar(
+                      radius: 64,
+                      backgroundColor: Colors.yellow.shade900,
+                    ),
+                    Positioned(
+                      right: 5,
+                      top: 5,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          CupertinoIcons.photo,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(15.0),
