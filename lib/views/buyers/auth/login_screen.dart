@@ -13,12 +13,16 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final AuthController _controller = AuthController();
 
-  bool _isLoading = true;
   late String email;
 
   late String password;
 
+  bool _isLoading = false;
+
   _loginUsers() async {
+    setState(() {
+      _isLoading = true;
+    });
     if (_formKey.currentState!.validate()) {
       await _controller.loginUsers(email, password);
 
@@ -29,8 +33,15 @@ class _LoginScreenState extends State<LoginScreen> {
             return MainScreen();
           },
         ),
-      );
+      ).whenComplete(() {
+        setState(() {
+          _isLoading = false;
+        });
+      });
     } else {
+      setState(() {
+        _isLoading = false;
+      });
       return showSnackB(context, 'Please all fields must not be empty');
     }
   }
@@ -103,15 +114,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Center(
-                    child: Text(
-                      'Login',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 4,
-                      ),
-                    ),
+                    child: _isLoading
+                        ? CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : Text(
+                            'Login',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 4,
+                            ),
+                          ),
                   ),
                 ),
               ),
