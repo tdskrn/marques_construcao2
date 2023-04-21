@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marques_construcao/controllers/auth_controller.dart';
 import 'package:marques_construcao/utils/show_snackBar.dart';
-import 'package:marques_construcao/views/buyers/auth/register_screen.dart';
+import 'package:marques_construcao/views/buyers/auth/buyer_register_screen.dart';
 import 'package:marques_construcao/views/buyers/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -139,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RegisterScreen(),
+                            builder: (context) => BuyerRegisterScreen(),
                           ),
                         );
                       },

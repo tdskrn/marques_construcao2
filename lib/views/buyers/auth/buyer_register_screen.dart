@@ -6,12 +6,12 @@ import 'package:marques_construcao/controllers/auth_controller.dart';
 import 'package:marques_construcao/utils/show_snackBar.dart';
 import 'package:marques_construcao/views/buyers/auth/login_screen.dart';
 
-class RegisterScreen extends StatefulWidget {
+class BuyerRegisterScreen extends StatefulWidget {
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<BuyerRegisterScreen> createState() => _BuyerRegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _BuyerRegisterScreenState extends State<BuyerRegisterScreen> {
   final AuthController _authController = AuthController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
