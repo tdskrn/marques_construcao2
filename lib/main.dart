@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:marques_construcao/firebase_options.dart';
 import 'package:marques_construcao/vendor/views/screens/main_vendor_screen.dart';
-import 'package:marques_construcao/views/buyers/auth/buyer_register_screen.dart';
-import 'package:marques_construcao/views/buyers/main_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
