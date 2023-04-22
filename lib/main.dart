@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:marques_construcao/firebase_options.dart';
 import 'package:marques_construcao/vendor/views/screens/main_vendor_screen.dart';
+import 'package:marques_construcao/views/buyers/auth/login_screen.dart';
+import 'package:marques_construcao/views/buyers/main_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Marques Construção',
       theme: ThemeData(primarySwatch: Colors.orange, fontFamily: 'Brand-Bold'),
-      home: MainVendorScreen(),
+      home: LoginScreen(),
     );
   }
 }

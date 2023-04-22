@@ -46,7 +46,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -54,7 +54,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -62,7 +62,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               DropdownButtonFormField(
                 hint: Text('Select Category'),
@@ -73,7 +73,33 @@ class _GeneralScreenState extends State<GeneralScreen> {
                   );
                 }).toList(),
                 onChanged: (value) {},
-              )
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              TextFormField(
+                maxLines: 10,
+                maxLength: 800,
+                decoration: InputDecoration(
+                  labelText: 'Enter Product Description',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              Row(
+                children: <Widget>[
+                  TextButton(
+                      onPressed: () {
+                        showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(5000));
+                      },
+                      child: Text('Schedule'))
+                ],
+              ),
             ],
           ),
         ),
