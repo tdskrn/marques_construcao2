@@ -13,7 +13,10 @@ class ImagesTabScreen extends StatefulWidget {
   State<ImagesTabScreen> createState() => _ImagesTabScreenState();
 }
 
-class _ImagesTabScreenState extends State<ImagesTabScreen> {
+class _ImagesTabScreenState extends State<ImagesTabScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   final ImagePicker picker = ImagePicker();
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
@@ -34,6 +37,7 @@ class _ImagesTabScreenState extends State<ImagesTabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     ProductProvider _productProvider = Provider.of<ProductProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(20.0),

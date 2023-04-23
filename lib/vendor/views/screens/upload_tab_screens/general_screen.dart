@@ -11,7 +11,13 @@ class GeneralScreen extends StatefulWidget {
   State<GeneralScreen> createState() => _GeneralScreenState();
 }
 
-class _GeneralScreenState extends State<GeneralScreen> {
+class _GeneralScreenState extends State<GeneralScreen>
+// esse mixin faz o set state nao aualizar esse widget
+    with
+        AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   List _categories = [];
@@ -43,6 +49,8 @@ class _GeneralScreenState extends State<GeneralScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // é necessario pra persistir os dados
+    super.build(context);
     // é assim que chamamos o provider
     final ProductProvider _productProvider =
         Provider.of<ProductProvider>(context);
