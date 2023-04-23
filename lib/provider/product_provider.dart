@@ -11,6 +11,8 @@ class ProductProvider with ChangeNotifier {
     String? description,
     DateTime? scheduleDate,
     List<String>? imageUrlList,
+    bool? chargeShipping,
+    double? chargePrice, //shippingCharge
   }) {
     if (productName != null) {
       productData['productName'] = productName;
@@ -33,6 +35,13 @@ class ProductProvider with ChangeNotifier {
     if (imageUrlList != null) {
       productData['imageUrlList'] = imageUrlList;
     }
+    if (chargeShipping != null) {
+      productData['chargeShipping'] = chargeShipping;
+    }
+    if (chargePrice != null) {
+      productData['chargePrice'] = chargePrice;
+    }
+
     notifyListeners();
   }
 }
