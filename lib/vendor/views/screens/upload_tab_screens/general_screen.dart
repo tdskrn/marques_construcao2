@@ -53,6 +53,15 @@ class _GeneralScreenState extends State<GeneralScreen> {
           child: Column(
             children: <Widget>[
               TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Enter Product Name';
+                  }
+                  if (value.length < 6) {
+                    return 'Name is too short';
+                  }
+                  return null;
+                },
                 onChanged: (value) {
                   _productProvider.getFormData(productName: value);
                 },
@@ -64,6 +73,16 @@ class _GeneralScreenState extends State<GeneralScreen> {
                 height: 25,
               ),
               TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Enter Product Price';
+                  }
+                  if (double.parse(value) < 0) {
+                    return 'The value is not accept';
+                  }
+                  return null;
+                },
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onChanged: (value) {
                   _productProvider.getFormData(
                       productPrice: double.parse(value));
@@ -76,6 +95,16 @@ class _GeneralScreenState extends State<GeneralScreen> {
                 height: 25,
               ),
               TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Enter with a quantity';
+                  }
+                  if (int.parse(value) <= 0) {
+                    return 'Quantity must not be less than 0';
+                  }
+                  return null;
+                },
+                keyboardType: TextInputType.number,
                 onChanged: (value) {
                   _productProvider.getFormData(quantity: int.parse(value));
                 },
@@ -87,6 +116,13 @@ class _GeneralScreenState extends State<GeneralScreen> {
                 height: 25,
               ),
               DropdownButtonFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Selected one category';
+                  }
+
+                  return null;
+                },
                 hint: Text('Select Category'),
                 items: _categories.map<DropdownMenuItem<String>>((e) {
                   return DropdownMenuItem(
@@ -104,6 +140,13 @@ class _GeneralScreenState extends State<GeneralScreen> {
                 height: 25,
               ),
               TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Enter with one description';
+                  }
+
+                  return null;
+                },
                 onChanged: (value) {
                   _productProvider.getFormData(description: value);
                 },

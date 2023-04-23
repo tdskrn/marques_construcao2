@@ -13,6 +13,8 @@ class ProductProvider with ChangeNotifier {
     List<String>? imageUrlList,
     bool? chargeShipping,
     double? chargePrice, //shippingCharge
+    String? brandName,
+    List<String>? sizeList,
   }) {
     if (productName != null) {
       productData['productName'] = productName;
@@ -40,6 +42,12 @@ class ProductProvider with ChangeNotifier {
     }
     if (chargePrice != null) {
       productData['chargePrice'] = chargePrice;
+    }
+    if (brandName != null) {
+      productData['brandName'] = brandName;
+    }
+    if (sizeList != null) {
+      productData['sizeList'] = sizeList;
     }
 
     notifyListeners();
