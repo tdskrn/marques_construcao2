@@ -10,6 +10,7 @@ class ProductProvider with ChangeNotifier {
     String? category,
     String? description,
     DateTime? scheduleDate,
+    List<String>? imageUrlList,
   }) {
     if (productName != null) {
       productData['productName'] = productName;
@@ -28,6 +29,9 @@ class ProductProvider with ChangeNotifier {
     }
     if (scheduleDate != null) {
       productData['scheduleDate'] = scheduleDate;
+    }
+    if (imageUrlList != null) {
+      productData['imageUrlList'] = imageUrlList;
     }
     notifyListeners();
   }
