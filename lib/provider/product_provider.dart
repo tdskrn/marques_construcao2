@@ -52,4 +52,9 @@ class ProductProvider with ChangeNotifier {
 
     notifyListeners();
   }
+
+  clearData() {
+    productData.clear();
+    notifyListeners();
+  }
 }

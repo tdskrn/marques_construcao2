@@ -85,12 +85,15 @@ class _ImagesTabScreenState extends State<ImagesTabScreen>
                       setState(() {
                         _imageUrlList.add(value);
                       });
-
-                      _productProvider.getFormData(imageUrlList: _imageUrlList);
-                      EasyLoading.dismiss();
                     });
                   });
                 }
+
+                setState(() {
+                  _productProvider.getFormData(imageUrlList: _imageUrlList);
+
+                  EasyLoading.dismiss();
+                });
               },
               child: _image.isNotEmpty ? Text('Upload Images') : Text(''))
         ],
