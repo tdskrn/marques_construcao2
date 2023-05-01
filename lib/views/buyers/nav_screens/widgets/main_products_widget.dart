@@ -17,7 +17,11 @@ class MainProductsScreen extends StatelessWidget {
           return Text('Something went wrong');
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text('Loading');
+          return Center(
+            child: LinearProgressIndicator(
+              color: Colors.yellow.shade900,
+            ),
+          );
         }
 
         return Container(
