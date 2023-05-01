@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:marques_construcao/views/buyers/nav_screens/widgets/home_products.dart';
+import 'package:marques_construcao/views/buyers/nav_screens/widgets/main_products_widget.dart';
 
 class CategoryText extends StatefulWidget {
   @override
@@ -56,8 +57,11 @@ class _CategoryTextState extends State<CategoryText> {
                                   : Colors.orange,
                               onPressed: () {
                                 setState(() {
-                                  _selectedCategory =
-                                      categoryData['categoryName'];
+                                  _selectedCategory ==
+                                          categoryData['categoryName']
+                                      ? _selectedCategory = null
+                                      : _selectedCategory =
+                                          categoryData['categoryName'];
                                 });
                               },
                               label: Text(
@@ -84,8 +88,9 @@ class _CategoryTextState extends State<CategoryText> {
               );
             },
           ),
-          if (_selectedCategory != null)
-            HomeProductWidget(categoryName: _selectedCategory!),
+          _selectedCategory != null
+              ? HomeProductWidget(categoryName: _selectedCategory!)
+              : MainProductsScreen(),
         ],
       ),
     );

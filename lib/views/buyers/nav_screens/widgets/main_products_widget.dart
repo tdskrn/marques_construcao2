@@ -1,19 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:marques_construcao/views/buyers/product_detail/product_detail_screen.dart';
 
-class HomeProductWidget extends StatelessWidget {
-  // Ela é passada por parametro para poder filtrar os produtos
-  final String categoryName;
+import '../../product_detail/product_detail_screen.dart';
 
-  const HomeProductWidget({super.key, required this.categoryName});
+class MainProductsScreen extends StatelessWidget {
+  const MainProductsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _productsStream = FirebaseFirestore.instance
-        .collection('products')
-        .where('category', isEqualTo: categoryName)
-        .snapshots();
+    final Stream<QuerySnapshot> _productsStream =
+        FirebaseFirestore.instance.collection('products').snapshots();
     return StreamBuilder<QuerySnapshot>(
       stream: _productsStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
