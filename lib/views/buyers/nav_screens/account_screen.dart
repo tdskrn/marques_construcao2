@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../auth/login_screen.dart';
+
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
 
@@ -10,6 +12,7 @@ class AccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // assim se faz referencia a uma coleção
     CollectionReference users = FirebaseFirestore.instance.collection('buyers');
+    FirebaseAuth _auth = FirebaseAuth.instance;
 
     return FutureBuilder<DocumentSnapshot>(
       // assim pego o id do usuario
@@ -93,6 +96,15 @@ class AccountScreen extends StatelessWidget {
                   title: Text('Orders'),
                 ),
                 ListTile(
+                  onTap: () {
+                    _auth.signOut().whenComplete(() {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return LoginScreen();
+                        },
+                      ));
+                    });
+                  },
                   leading: Icon(Icons.logout),
                   title: Text('Logout'),
                 ),
@@ -100,7 +112,7 @@ class AccountScreen extends StatelessWidget {
             ),
           );
         } else {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         }
       },
     );

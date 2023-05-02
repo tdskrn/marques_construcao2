@@ -75,6 +75,7 @@ class UploadScreen extends StatelessWidget {
                         _productProvider.productData['chargeShipping'],
                     'chargePrice': _productProvider.productData['chargePrice'],
                     'vendorId': FirebaseAuth.instance.currentUser!.uid,
+                    'approved': false,
                   }).whenComplete(() {
                     _productProvider.clearData();
                     _formKey.currentState!.reset();

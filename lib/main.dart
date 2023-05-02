@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         title: 'Marques Construção',
         theme:
             ThemeData(primarySwatch: Colors.orange, fontFamily: 'Brand-Bold'),
-        home: MainScreen(),
+        home: LoginScreen(),
         builder: EasyLoading.init(),
       ),
     );
