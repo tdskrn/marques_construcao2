@@ -201,14 +201,24 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       scrollDirection: Axis.horizontal,
                       itemCount: widget.productData['sizeList'].length,
                       itemBuilder: (context, index) {
-                        return OutlinedButton(
-                            onPressed: () {
-                              setState(() {
-                                _selectedSize =
-                                    widget.productData['sizeList'][index];
-                              });
-                            },
-                            child: Text(widget.productData['sizeList'][index]));
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            color: _selectedSize ==
+                                    widget.productData['sizeList'][index]
+                                ? Colors.yellow
+                                : null,
+                            child: OutlinedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _selectedSize =
+                                        widget.productData['sizeList'][index];
+                                  });
+                                },
+                                child: Text(
+                                    widget.productData['sizeList'][index])),
+                          ),
+                        );
                       },
                     ),
                   ),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:marques_construcao/views/buyers/nav_screens/inner_screens/all_products_screen.dart';
 
 class CategoryScreen extends StatelessWidget {
   @override
@@ -39,6 +40,15 @@ class CategoryScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final categoryData = snapshot.data!.docs[index];
                 return ListTile(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return AllProductScreen(
+                          categoryData: categoryData,
+                        );
+                      },
+                    ));
+                  },
                   leading: Image.network(categoryData['image']),
                   title: Text(categoryData['categoryName']),
                 );
