@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:marques_construcao/provider/cart_provider.dart';
+import 'package:marques_construcao/views/buyers/nav_screens/inner_screens/checkout_screen.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
@@ -184,23 +185,32 @@ class CartScreen extends StatelessWidget {
       bottomSheet: _cartProvider.getCartItem.isNotEmpty
           ? Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.yellow.shade900,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Center(
-                  child: Text(
-                    'R\$ ' +
-                        _cartProvider.totalPrice.toStringAsFixed(2) +
-                        ' CHECKOUT',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      letterSpacing: 4,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return CheckoutScreen();
+                    },
+                  ));
+                },
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.yellow.shade900,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'R\$ ' +
+                          _cartProvider.totalPrice.toStringAsFixed(2) +
+                          ' CHECKOUT',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        letterSpacing: 4,
+                      ),
                     ),
                   ),
                 ),
