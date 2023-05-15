@@ -28,8 +28,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   msgSize() {
-    return ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Hey, you have the choose one size at least')));
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Hey, could you have the choose one size at least')));
   }
 
   msgSucessAddProduct() {
@@ -233,27 +233,33 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             height: 50,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-                color: Colors.yellow.shade900,
+                color: _cartProvider.getCartItem
+                        .containsKey(widget.productData['productId'])
+                    ? Colors.grey
+                    : Colors.yellow.shade900,
                 borderRadius: BorderRadius.circular(10)),
             child: InkWell(
-              onTap: () {
-                if (_selectedSize == null) {
-                  return msgSize();
-                }
-                _cartProvider.addProductToCart(
-                  widget.productData['productName'],
-                  widget.productData['productId'],
-                  widget.productData['imageUrlList'],
-                  1,
-                  widget.productData['quantity'],
-                  widget.productData['productPrice'],
-                  widget.productData['vendorId'],
-                  _selectedSize!,
-                  widget.productData['scheduleDate'],
-                );
+              onTap: _cartProvider.getCartItem
+                      .containsKey(widget.productData['productId'])
+                  ? null
+                  : () {
+                      if (_selectedSize == null) {
+                        return msgSize();
+                      }
+                      _cartProvider.addProductToCart(
+                        widget.productData['productName'],
+                        widget.productData['productId'],
+                        widget.productData['imageUrlList'],
+                        1,
+                        widget.productData['quantity'],
+                        widget.productData['productPrice'],
+                        widget.productData['vendorId'],
+                        _selectedSize!,
+                        widget.productData['scheduleDate'],
+                      );
 
-                msgSucessAddProduct();
-              },
+                      msgSucessAddProduct();
+                    },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -266,14 +272,24 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'ADD TO CART',
-                      style: TextStyle(
-                        letterSpacing: 3,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: _cartProvider.getCartItem
+                            .containsKey(widget.productData['productId'])
+                        ? Text(
+                            'IN CART',
+                            style: TextStyle(
+                              letterSpacing: 3,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : Text(
+                            'ADD TO CART',
+                            style: TextStyle(
+                              letterSpacing: 3,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                   ),
                 ],
               ),
