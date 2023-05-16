@@ -7,6 +7,8 @@ import 'package:marques_construcao/views/buyers/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
+import 'edit_profile.dart';
+
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
 
@@ -109,63 +111,76 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 );
               },
             ),
-            bottomSheet: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () {
-                  EasyLoading.show(status: 'Placing Order');
-                  _cartProvider.getCartItem.forEach((key, item) {
-                    final orderId = Uuid().v4();
-                    _firestore.collection('orders').doc(orderId).set({
-                      'orderId': orderId,
-                      'vendorId': item.vendorId,
-                      'email': data['email'],
-                      'phone': data['phoneNumber'],
-                      'address': data['address'],
-                      'buyerId': data['buyerId'],
-                      'fullName': data['fullName'],
-                      'buyerPhoto': data['profileImage'],
-                      'productName': item.productName,
-                      'productPrice': item.price,
-                      'productId': item.productId,
-                      'productImage': item.imageUrl,
-                      'quantity': item.productQuantity,
-                      'productSize': item.productSize,
-                      'scheduleDate': item.scheduleDate,
-                      'orderDate': DateTime.now(),
-                    }).whenComplete(() {
-                      setState(() {
-                        _cartProvider.getCartItem.clear();
-                      });
-                      EasyLoading.dismiss();
-                      Navigator.pushReplacement(context, MaterialPageRoute(
+            bottomSheet: data['address'] == ''
+                ? TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
-                          return MainScreen();
+                          return EditProfileScreen(
+                            userData: data,
+                          );
                         },
                       ));
-                    });
-                  });
-                },
-                child: Container(
-                  height: 50,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Colors.yellow.shade900,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'PLACE ORDER',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                    },
+                    child: Text('Enter Billing Address'))
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
+                        EasyLoading.show(status: 'Placing Order');
+                        _cartProvider.getCartItem.forEach((key, item) {
+                          final orderId = Uuid().v4();
+                          _firestore.collection('orders').doc(orderId).set({
+                            'orderId': orderId,
+                            'vendorId': item.vendorId,
+                            'email': data['email'],
+                            'phone': data['phoneNumber'],
+                            'address': data['address'],
+                            'buyerId': data['buyerId'],
+                            'fullName': data['fullName'],
+                            'buyerPhoto': data['profileImage'],
+                            'productName': item.productName,
+                            'productPrice': item.price,
+                            'productId': item.productId,
+                            'productImage': item.imageUrl,
+                            'quantity': item.productQuantity,
+                            'productSize': item.productSize,
+                            'scheduleDate': item.scheduleDate,
+                            'orderDate': DateTime.now(),
+                          }).whenComplete(() {
+                            setState(() {
+                              _cartProvider.getCartItem.clear();
+                            });
+                            EasyLoading.dismiss();
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(
+                              builder: (context) {
+                                return MainScreen();
+                              },
+                            ));
+                          });
+                        });
+                      },
+                      child: Container(
+                        height: 50,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.yellow.shade900,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'PLACE ORDER',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            ),
           );
         }
         return Center(
