@@ -120,7 +120,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             userData: data,
                           );
                         },
-                      ));
+                      )).whenComplete(() {
+                        Navigator.pop(context);
+                      });
                     },
                     child: Text('Enter Billing Address'))
                 : Padding(

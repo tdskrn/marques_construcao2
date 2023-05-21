@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:marques_construcao/provider/cart_provider.dart';
+import 'package:marques_construcao/views/buyers/main_screen.dart';
+import 'package:marques_construcao/views/buyers/nav_screens/home_screen.dart';
 import 'package:marques_construcao/views/buyers/nav_screens/inner_screens/checkout_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -162,19 +164,28 @@ class CartScreen extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    height: 40,
-                    width: MediaQuery.of(context).size.width - 40,
-                    decoration: BoxDecoration(
-                      color: Colors.yellow.shade900,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Continue Shopping",
-                        style: TextStyle(
-                          fontSize: 19,
-                          color: Colors.white,
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return MainScreen();
+                        },
+                      ));
+                    },
+                    child: Container(
+                      height: 40,
+                      width: MediaQuery.of(context).size.width - 40,
+                      decoration: BoxDecoration(
+                        color: Colors.yellow.shade900,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Continue Shopping",
+                          style: TextStyle(
+                            fontSize: 19,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),

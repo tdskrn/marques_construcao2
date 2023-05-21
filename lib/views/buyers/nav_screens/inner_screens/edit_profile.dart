@@ -138,6 +138,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               'address': address,
             }).whenComplete(() {
               EasyLoading.dismiss();
+
+              Navigator.pop(context);
             });
           },
           child: Container(
