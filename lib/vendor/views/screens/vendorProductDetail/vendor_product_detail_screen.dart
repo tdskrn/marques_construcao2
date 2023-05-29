@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class VendorProductDetailScreen extends StatefulWidget {
   final dynamic productData;
@@ -110,6 +111,7 @@ class _VendorProductDetailScreenState extends State<VendorProductDetailScreen> {
       ),
       bottomSheet: InkWell(
         onTap: () async {
+          EasyLoading.show(status: 'Waiting');
           await _firestore
               .collection('products')
               .doc(widget.productData['productId'])
@@ -120,6 +122,7 @@ class _VendorProductDetailScreenState extends State<VendorProductDetailScreen> {
             'productPrice': double.parse(_productPriceController.text),
             'description': _productDescriptionController.text,
           }).whenComplete(() {
+            EasyLoading.dismiss();
             Navigator.pop(context);
           });
         },
