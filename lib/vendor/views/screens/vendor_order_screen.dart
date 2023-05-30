@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,10 @@ class VendorOrderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _ordersStream =
-        FirebaseFirestore.instance.collection('orders').snapshots();
+    final Stream<QuerySnapshot> _ordersStream = FirebaseFirestore.instance
+        .collection('orders')
+        .where('vendorId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .snapshots();
     return Scaffold(
       appBar: AppBar(
         title: Text(

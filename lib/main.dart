@@ -6,9 +6,9 @@ import 'package:marques_construcao/firebase_options.dart';
 import 'package:marques_construcao/provider/cart_provider.dart';
 import 'package:marques_construcao/provider/product_provider.dart';
 import 'package:marques_construcao/vendor/views/auth/vendor_auth.dart';
-import 'package:marques_construcao/vendor/views/screens/main_vendor_screen.dart';
-import 'package:marques_construcao/views/buyers/auth/login_screen.dart';
-import 'package:marques_construcao/views/buyers/main_screen.dart';
+// import 'package:marques_construcao/vendor/views/screens/main_vendor_screen.dart';
+// import 'package:marques_construcao/views/buyers/auth/login_screen.dart';
+// import 'package:marques_construcao/views/buyers/main_screen.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {

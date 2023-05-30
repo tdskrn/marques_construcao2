@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:marques_construcao/provider/cart_provider.dart';
 import 'package:marques_construcao/views/buyers/main_screen.dart';
-import 'package:marques_construcao/views/buyers/nav_screens/home_screen.dart';
+// import 'package:marques_construcao/views/buyers/nav_screens/home_screen.dart';
 import 'package:marques_construcao/views/buyers/nav_screens/inner_screens/checkout_screen.dart';
 import 'package:provider/provider.dart';
 
