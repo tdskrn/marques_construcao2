@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ class VendorOrderScreen extends StatelessWidget {
     return outPutDate;
   }
 
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _ordersStream = FirebaseFirestore.instance
@@ -45,79 +48,138 @@ class VendorOrderScreen extends StatelessWidget {
 
           return ListView(
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              return Column(
-                children: [
-                  ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 14,
-                      child: document['accepted'] == true
-                          ? Icon(
-                              Icons.delivery_dining,
+              return Slidable(
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 14,
+                        child: document['accepted'] == true
+                            ? Icon(
+                                Icons.delivery_dining,
+                              )
+                            : Icon(
+                                Icons.access_time,
+                              ),
+                      ),
+                      title: document['accepted'] == true
+                          ? Text(
+                              'Accepted',
+                              style: TextStyle(color: Colors.yellow.shade900),
                             )
-                          : Icon(
-                              Icons.access_time,
+                          : Text(
+                              'Not Accepted',
+                              style: TextStyle(color: Colors.red),
                             ),
+                      trailing: Text(
+                        'Amount ' +
+                            'R\$ ' +
+                            document['productPrice'].toStringAsFixed(2),
+                        style: TextStyle(fontSize: 17, color: Colors.blue),
+                      ),
+                      subtitle: Text(
+                        formatedDate(document['orderDate'].toDate()),
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
                     ),
-                    title: document['accepted'] == true
-                        ? Text(
-                            'Accepted',
-                            style: TextStyle(color: Colors.yellow.shade900),
-                          )
-                        : Text(
-                            'Not Accepted',
-                            style: TextStyle(color: Colors.red),
+                    ExpansionTile(
+                      title: Text(
+                        'Order Details',
+                        style: TextStyle(
+                          color: Colors.yellow.shade900,
+                          fontSize: 15,
+                        ),
+                      ),
+                      subtitle: Text('View Order Details'),
+                      children: [
+                        ListTile(
+                          leading: CircleAvatar(
+                            child: Image.network(document['productImage'][0]),
                           ),
-                    trailing: Text(
-                      'Amount ' +
-                          'R\$ ' +
-                          document['productPrice'].toStringAsFixed(2),
-                      style: TextStyle(fontSize: 17, color: Colors.blue),
-                    ),
-                    subtitle: Text(
-                      formatedDate(document['orderDate'].toDate()),
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                  ExpansionTile(
-                    title: Text(
-                      'Order Details',
-                      style: TextStyle(
-                        color: Colors.yellow.shade900,
-                        fontSize: 15,
-                      ),
-                    ),
-                    subtitle: Text('View Order Details'),
-                    children: [
-                      ListTile(
-                        leading: CircleAvatar(
-                          child: Image.network(document['productImage'][0]),
-                        ),
-                        title: Text(document['productName']),
-                        subtitle: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  ('Quantity'),
+                          title: Text(document['productName']),
+                          subtitle: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    ('Quantity'),
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(document['quantity'].toString())
+                                ],
+                              ),
+                              document['accepted'] == true
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text('Schedule Delivery Date'),
+                                        Text(formatedDate(
+                                            document['scheduleDate'].toDate())),
+                                      ],
+                                    )
+                                  : Text(''),
+                              ListTile(
+                                title: Text(
+                                  'Buyer Details',
                                   style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
+                                    fontSize: 18,
+                                  ),
                                 ),
-                                Text(document['quantity'].toString())
-                              ],
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                                subtitle: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(document['fullName']),
+                                    Text(document['email']),
+                                    Text(document['address']),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                key: const ValueKey(0),
+                startActionPane:
+                    ActionPane(motion: const ScrollMotion(), children: [
+                  SlidableAction(
+                    onPressed: (context) async {
+                      await _firestore
+                          .collection('orders')
+                          .doc(document['orderId'])
+                          .update({'accepted': false});
+                    },
+                    backgroundColor: Colors.red.shade900,
+                    foregroundColor: Colors.white,
+                    icon: Icons.delete,
+                    label: 'Reject',
                   ),
-                ],
+                  SlidableAction(
+                    onPressed: (context) async {
+                      await _firestore
+                          .collection('orders')
+                          .doc(document['orderId'])
+                          .update({'accepted': true});
+                    },
+                    backgroundColor: Colors.green.shade900,
+                    foregroundColor: Colors.white,
+                    icon: Icons.approval_outlined,
+                    label: 'Accept',
+                  ),
+                ]),
               );
             }).toList(),
           );

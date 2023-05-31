@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:marques_construcao/vendor/views/auth/vendor_login_screen.dart';
-import 'package:marques_construcao/vendor/views/auth/vendor_register_screen.dart';
+// import 'package:marques_construcao/vendor/views/auth/vendor_register_screen.dart';
 
 import 'package:marques_construcao/vendor/views/screens/landind_screen.dart';
 

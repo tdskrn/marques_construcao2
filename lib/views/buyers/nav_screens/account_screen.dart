@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:marques_construcao/views/buyers/nav_screens/inner_screens/edit_profile.dart';
+import 'package:marques_construcao/views/buyers/nav_screens/inner_screens/order_screen.dart';
 
 import '../auth/login_screen.dart';
 
@@ -123,6 +124,13 @@ class AccountScreen extends StatelessWidget {
                   title: Text(data['phoneNumber']),
                 ),
                 ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OrderScreen(),
+                        ));
+                  },
                   leading: Icon(Icons.shopping_cart),
                   title: Text('Orders'),
                 ),

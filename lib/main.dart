@@ -5,9 +5,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:marques_construcao/firebase_options.dart';
 import 'package:marques_construcao/provider/cart_provider.dart';
 import 'package:marques_construcao/provider/product_provider.dart';
-import 'package:marques_construcao/vendor/views/auth/vendor_auth.dart';
+// import 'package:marques_construcao/vendor/views/auth/vendor_auth.dart';
 // import 'package:marques_construcao/vendor/views/screens/main_vendor_screen.dart';
-// import 'package:marques_construcao/views/buyers/auth/login_screen.dart';
+import 'package:marques_construcao/views/buyers/auth/login_screen.dart';
 // import 'package:marques_construcao/views/buyers/main_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -38,8 +38,8 @@ class MyApp extends StatelessWidget {
         title: 'Marques Construção',
         theme:
             ThemeData(primarySwatch: Colors.orange, fontFamily: 'Brand-Bold'),
-        // home: LoginScreen(),
-        home: VendorAuthScreen(),
+        home: LoginScreen(),
+        // home: VendorAuthScreen(),
         builder: EasyLoading.init(),
       ),
     );
