@@ -9,6 +9,7 @@ import 'package:marques_construcao/provider/product_provider.dart';
 // import 'package:marques_construcao/vendor/views/screens/main_vendor_screen.dart';
 import 'package:marques_construcao/views/buyers/auth/login_screen.dart';
 // import 'package:marques_construcao/views/buyers/main_screen.dart';
+// import 'package:marques_construcao/views/buyers/main_screen.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         theme:
             ThemeData(primarySwatch: Colors.orange, fontFamily: 'Brand-Bold'),
         home: LoginScreen(),
+        // home: MainScreen(),
         // home: VendorAuthScreen(),
         builder: EasyLoading.init(),
       ),

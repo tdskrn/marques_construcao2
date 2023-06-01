@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:marques_construcao/controllers/auth_controller.dart';
 import 'package:marques_construcao/utils/show_snackBar.dart';
-import 'package:marques_construcao/vendor/views/auth/vendor_register_screen.dart';
+import 'package:marques_construcao/vendor/views/auth/vendor_first_register_screen.dart';
+
 // import 'package:marques_construcao/views/buyers/auth/buyer_register_screen.dart';
 // import 'package:marques_construcao/views/buyers/main_screen.dart';
 
@@ -59,7 +60,7 @@ class _VendorLoginScreenState extends State<VendorLoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Login Customer"s Account',
+                'Login Vendor"s Account',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -142,7 +143,7 @@ class _VendorLoginScreenState extends State<VendorLoginScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => VendorRegistrationScreen(),
+                            builder: (context) => VendorFirstRegisterScreen(),
                           ),
                         );
                       },
