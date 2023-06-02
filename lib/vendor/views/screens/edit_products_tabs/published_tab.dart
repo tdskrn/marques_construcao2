@@ -13,10 +13,7 @@ class PublishedTab extends StatelessWidget {
         .instance
         .collection('products')
         .where('vendorId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-        .where(
-          'approved',
-          isEqualTo: true,
-        )
+        .where('approved', isEqualTo: true)
         .snapshots();
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
@@ -31,7 +28,18 @@ class PublishedTab extends StatelessWidget {
               color: Colors.yellow.shade900,
             );
           }
-
+          if (snapshot.data!.docs.isEmpty) {
+            return Center(
+              child: Text(
+                'No Published Products\nYet',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+          }
           return Container(
             height: 300,
             child: ListView.builder(
